@@ -7,6 +7,8 @@ import {
   ManyToOne,
   JoinColumn,
   JoinTable,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from "typeorm";
 import { TenantEntity } from "./tenant.entity";
 import { TeamEntity } from "./team.entity";
@@ -24,6 +26,9 @@ export class EmployeeEntity {
   @Index(["email"], { unique: true })
   email: string;
 
+  @Column({ length: 255, nullable: false })
+  password: string;
+
   @Column({ name: "tenantId", nullable: false })
   tenantId: string;
 
@@ -39,4 +44,10 @@ export class EmployeeEntity {
     inverseJoinColumn: { name: "teamId", referencedColumnName: "id" },
   })
   teams: TeamEntity[];
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }

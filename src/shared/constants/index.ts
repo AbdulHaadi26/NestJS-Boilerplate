@@ -3,5 +3,6 @@ enum ProviderNames {
 }
 
 const DataSource = "DATA_SOURCE";
+const TokenValidationFailure = "Token validation failed";
 
-export { ProviderNames, DataSource };
+export { ProviderNames, DataSource, TokenValidationFailure };

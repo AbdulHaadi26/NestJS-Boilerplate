@@ -7,6 +7,8 @@ import {
   ManyToOne,
   JoinColumn,
   JoinTable,
+  UpdateDateColumn,
+  CreateDateColumn,
 } from "typeorm";
 import { TenantEntity } from "./tenant.entity";
 import { EmployeeEntity } from "./employee.entity";
@@ -36,4 +38,10 @@ export class TeamEntity {
     inverseJoinColumn: { name: "employeeId", referencedColumnName: "id" },
   })
   members: EmployeeEntity[];
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }

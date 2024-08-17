@@ -1,4 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn, Index } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  Index,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from "typeorm";
 
 @Entity("tenants")
 export class TenantEntity {
@@ -11,4 +18,10 @@ export class TenantEntity {
   @Column({ name: "tenantId", unique: true, nullable: false })
   @Index("tenant_key_idx")
   tenantId: string;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }
