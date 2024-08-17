@@ -1,9 +1,10 @@
 import { MiddlewareConsumer, Module } from "@nestjs/common";
-import { JWTMiddleware } from "src/middlewares/jwt.middleware";
-import { EmployeeService } from "src/services/employees.service";
+import { JWTMiddleware } from "../../common/middlewares/jwt.middleware";
+import { EmployeeService } from "../../modules/employees/employees.service";
 import { EmployeesController } from "./employees.controller";
 
 @Module({
+  imports: [],
   providers: [EmployeeService],
   controllers: [EmployeesController],
 })

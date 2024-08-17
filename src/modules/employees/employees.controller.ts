@@ -1,16 +1,12 @@
-import { Controller, Get, HttpException, HttpStatus } from "@nestjs/common";
-import { EmployeeService } from "src/services/employees.service";
+import { Controller, Get, Param } from "@nestjs/common";
+import { EmployeeService } from "src/modules/employees/employees.service";
 
 @Controller("employees")
 export class EmployeesController {
   constructor(private readonly employeesService: EmployeeService) {}
 
-  @Get("")
-  getEmployees() {
-    try {
-      return [];
-    } catch (e) {
-      throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+  @Get("/:email")
+  async getEmployees(@Param("email") email: string) {
+    return await this.employeesService.findOne(email);
   }
 }
