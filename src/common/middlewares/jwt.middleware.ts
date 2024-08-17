@@ -6,7 +6,7 @@ import {
 } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { NextFunction, Request, Response } from "express";
-import { TokenValidationFailure } from "src/shared/constants";
+import { TokenValidationError } from "src/shared/constants";
 
 @Injectable()
 export class JWTMiddleware implements NestMiddleware {
@@ -25,7 +25,7 @@ export class JWTMiddleware implements NestMiddleware {
 
       return next();
     } catch (error) {
-      throw new HttpException(TokenValidationFailure, HttpStatus.UNAUTHORIZED);
+      throw new HttpException(TokenValidationError, HttpStatus.UNAUTHORIZED);
     }
   }
 

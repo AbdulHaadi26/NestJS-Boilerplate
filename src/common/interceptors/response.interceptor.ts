@@ -29,6 +29,10 @@ export class ResponseInterceptor implements NestInterceptor {
 
       let message = HttpStatus[statusCode];
 
+      if (typeof error === "object" && error?.response) {
+        message = error.response.message;
+      }
+
       response.status(statusCode).json({
         statusCode,
         message,

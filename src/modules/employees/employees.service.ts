@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
-import { EmployeeEntity } from "../../../config/entities";
+import { EmployeeEntity } from "../../database/entities";
 import { DataSource, Repository } from "typeorm";
-import { AuthUser } from "src/shared/types/auth.types";
+import { AuthUserType } from "../../shared/types";
 
 @Injectable()
 export class EmployeeService {
@@ -10,7 +10,7 @@ export class EmployeeService {
     this.employeeRepository = this.dataSoruce.getRepository(EmployeeEntity);
   }
 
-  public async findOne(user: AuthUser): Promise<EmployeeEntity> {
+  public async findOne(user: AuthUserType): Promise<EmployeeEntity> {
     const { id, tenantId } = user;
 
     const employee = await this.employeeRepository.findOne({

@@ -1,15 +1,14 @@
 import { Module } from "@nestjs/common";
 import { APP_INTERCEPTOR } from "@nestjs/core";
 import { ResponseInterceptor } from "./common/interceptors/response.interceptor";
-import { EmployeesModule } from "./modules/employees/employees.module";
+import { EmployeesModule, AuthModule } from "./modules";
 import { ConfigModule } from "@nestjs/config";
-import { TypeOrmModule } from "./config/typeorm.module";
+import { DatabaseModule } from "./database/database.module";
 import { JwtModule } from "@nestjs/jwt";
-import { AuthModule } from "./modules/auth/auth.module";
 
 @Module({
   imports: [
-    TypeOrmModule,
+    DatabaseModule,
     AuthModule,
     EmployeesModule,
     ConfigModule.forRoot(),

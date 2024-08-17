@@ -1,17 +1,18 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
-import { EmployeeEntity } from "../../../config/entities";
+import { EmployeeEntity } from "../../database/entities";
 import { DataSource, Repository } from "typeorm";
 import { JwtService } from "@nestjs/jwt";
-import { SignInType } from "../../../shared/types/auth.types";
-import { SignInDto } from "../dtos/signIn.dto";
-import { compare } from "../../../shared/helpers/bcrypt";
+import { SignInType } from "../../shared/types";
+import { SignInDto } from "../../common/dtos";
+import { EncyrptionService } from "../../shared/services";
 
 @Injectable()
 export class AuthService {
   private readonly employeeRepository: Repository<EmployeeEntity>;
   constructor(
     private readonly dataSoruce: DataSource,
-    private readonly jwtService: JwtService
+    private readonly jwtService: JwtService,
+    private readonly encryptService: EncyrptionService
   ) {
     this.employeeRepository = this.dataSoruce.getRepository(EmployeeEntity);
   }
@@ -26,7 +27,10 @@ export class AuthService {
       throw new HttpException("Employee not found", HttpStatus.UNAUTHORIZED);
     }
 
-    const isPasswordValid = await compare(password, employee.password);
+    const isPasswordValid = await this.encryptService.bcryptCompare(
+      password,
+      employee.password
+    );
 
     if (!isPasswordValid) {
       throw new HttpException(

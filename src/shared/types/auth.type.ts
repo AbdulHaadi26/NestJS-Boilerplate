@@ -2,9 +2,9 @@ type SignInType = {
   token: string;
 };
 
-type AuthUser = {
+type AuthUserType = {
   id: number;
   tenantId: string;
 };
 
-export { SignInType, AuthUser };
+export { SignInType, AuthUserType };
