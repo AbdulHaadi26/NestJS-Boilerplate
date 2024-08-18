@@ -6,7 +6,7 @@ import {
 } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { NextFunction, Request, Response } from "express";
-import { TokenValidationError } from "src/shared/constants";
+import { TokenValidationError } from "../../shared/constants";
 
 @Injectable()
 export class JWTMiddleware implements NestMiddleware {
@@ -16,7 +16,8 @@ export class JWTMiddleware implements NestMiddleware {
     try {
       const token = this.extractTokenFromHeader(req);
 
-      //Replace with Cognito
+      if (!token) throw new Error("No token provided");
+
       const payload = await this.jwtService.verifyAsync(token, {
         secret: process.env.JWT_SECRET,
       });
