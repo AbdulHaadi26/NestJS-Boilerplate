@@ -19,12 +19,10 @@ export class AuthService {
 
   public async signIn(body: SignInDto): Promise<SignInType> {
     const { email, password } = body;
-    console.log(email, password);
     const employee = await this.employeeRepository.findOneBy({
       email,
     });
 
-    console.log(employee);
     if (!employee) {
       throw new HttpException("Employee not found", HttpStatus.UNAUTHORIZED);
     }
