@@ -7,7 +7,6 @@ import { HttpException, HttpStatus } from "@nestjs/common";
 
 describe("AuthController", () => {
   let authController: AuthController;
-  let authService: AuthService;
 
   const mockAuthService = {
     signIn: jest.fn(),
@@ -25,7 +24,6 @@ describe("AuthController", () => {
     }).compile();
 
     authController = module.get<AuthController>(AuthController);
-    authService = module.get<AuthService>(AuthService);
   });
 
   it("should be defined", () => {
@@ -82,6 +80,7 @@ describe("AuthController", () => {
           HttpStatus.UNAUTHORIZED
         )
       );
+
       expect(mockAuthService.signIn).toHaveBeenCalledWith(signInDto);
     });
   });
